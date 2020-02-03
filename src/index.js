@@ -5,6 +5,8 @@ import './index.css'
 import App from './components'
 import * as serviceWorker from './serviceWorker'
 
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HttpLink } from 'apollo-link-http'
