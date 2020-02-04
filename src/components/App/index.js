@@ -1,20 +1,20 @@
 import React from 'react'
 import logo from './logo.svg'
-import './App.css'
+import styles from './App.module.css'
 
-import SignUp from '../SignUp/SignUp'
+import SignUp from '../SignUp'
 import { Switch, Route } from 'react-router'
 
 function App () {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
+    <div className={styles.App}>
+      <header className={styles.AppHeader}>
+        <img src={logo} className={styles.AppLogo} alt='logo' />
         <p>
           Simple Chat app in construction
         </p>
       </header>
-      <div className='App-main'>
+      <div className={styles.AppMain}>
         <Switch>
           <Route exact path='/auth/signup' component={SignUp} />
         </Switch>

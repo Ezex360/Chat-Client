@@ -1,5 +1,5 @@
 import React from 'react'
-import './SignUp.css'
+import styles from './SignUp.module.css'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -8,11 +8,11 @@ import Container from 'react-bootstrap/Container'
 
 function SignUp () {
   return (
-    <div className='SignUp'>
+    <div className={styles.SignUp}>
       <Container>
         <Jumbotron>
           <h1> Member Registration</h1>
-          <Form className='SignUp-form'>
+          <Form className={styles.SignUpForm}>
             <Form.Group controlId='formFirstName'>
               <Form.Label>Name</Form.Label>
               <Form.Control type='text' placeholder='Enter your first name' />
