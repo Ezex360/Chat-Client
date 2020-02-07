@@ -3,6 +3,7 @@ import logo from './logo.svg'
 import styles from './App.module.css'
 
 import SignUp from '../SignUp'
+import SignIn from '../SignIn'
 import { Switch, Route } from 'react-router'
 
 function App () {
@@ -17,6 +18,7 @@ function App () {
       <div className={styles.AppMain}>
         <Switch>
           <Route exact path='/auth/signup' component={SignUp} />
+          <Route exact path='/auth/signin' component={SignIn} />
         </Switch>
       </div>
     </div>
