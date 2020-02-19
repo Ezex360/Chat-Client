@@ -1,26 +1,29 @@
 import React from 'react'
-import logo from './logo.svg'
+import { Switch, Route } from 'react-router'
+import { Container } from 'react-bootstrap'
 import styles from './App.module.css'
 
 import SignUp from '../SignUp'
 import SignIn from '../SignIn'
-import { Switch, Route } from 'react-router'
+import NavBar from '../NavBar'
+import UserInfo from '../UserInfo'
+
 
 function App () {
   return (
     <div className={styles.App}>
-      <header className={styles.AppHeader}>
-        <img src={logo} className={styles.AppLogo} alt='logo' />
-        <p>
-          Simple Chat app in construction
-        </p>
-      </header>
-      <div className={styles.AppMain}>
-        <Switch>
-          <Route exact path='/auth/signup' component={SignUp} />
-          <Route exact path='/auth/signin' component={SignIn} />
-        </Switch>
-      </div>
+      <Container>
+        <header className={styles.AppHeader}>
+          <NavBar/>
+        </header>      
+        <div className={styles.AppMain}>
+          <Switch>
+            <Route exact path='/auth/signup' component={SignUp} />
+            <Route exact path='/auth/signin' component={SignIn} />
+            <Route exact path='/userInfo' component={UserInfo} />
+          </Switch>
+        </div>
+      </Container>
     </div>
   )
 }
