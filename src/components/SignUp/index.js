@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Container from 'react-bootstrap/Container'
+import { Link } from 'react-router-dom'
 
 function SignUp () {
   return (
@@ -14,29 +15,34 @@ function SignUp () {
           <h1> Member Registration</h1>
           <Form className={styles.SignUpForm}>
             <Form.Group controlId='formFirstName'>
-              <Form.Label>Name</Form.Label>
-              <Form.Control type='text' placeholder='Enter your first name' />
+              <Form.Control size='lg' type='text' placeholder='First name' required />
             </Form.Group>
 
             <Form.Group controlId='formLastName'>
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control type='text' placeholder='Enter your last name' />
+              <Form.Control size='lg' type='text' placeholder='Last name' required />
             </Form.Group>
 
             <Form.Group controlId='formUsername'>
-              <Form.Label>Username</Form.Label>
-              <Form.Control type='text' placeholder='Username' />
+              <Form.Control size='lg' type='text' placeholder='Username' required />
             </Form.Group>
 
             <Form.Group controlId='formPassword'>
-              <Form.Label>Password</Form.Label>
-              <Form.Control type='password' placeholder='Password' />
+              <Form.Control size='lg' type='password' placeholder='Password' required />
             </Form.Group>
 
-            <Button variant='primary' size='lg' type='submit' block>
+            <Button
+              className={styles.SignUpButton} type='submit' variant='primary'
+              size='lg' style={{ fontSize: 32 }} block
+            >
               Submit
             </Button>
+
           </Form>
+
+          <Link to='/auth/signin'>
+            Do you already have an account?
+          </Link>
+
         </Jumbotron>
       </Container>
 
