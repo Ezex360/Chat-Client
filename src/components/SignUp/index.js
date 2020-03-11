@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { Formik } from 'formik'
@@ -14,6 +14,8 @@ const SIGN_UP = gql`
       user{
         id
         username
+        firstName
+        lastName
       }
       jwt
     }
@@ -21,11 +23,11 @@ const SIGN_UP = gql`
 `
 
 const ValidationSchema = Yup.object().shape({
-  firstname: Yup.string()
+  firstName: Yup.string()
     .min(2, 'Too Short! Names must have more than 2 letters')
     .max(255, 'Too Long!')
     .required('Required'),
-  lastname: Yup.string()
+  lastName: Yup.string()
     .min(2, 'Too Short! Surnames must have more than 2 letters')
     .max(255, 'Too Long!')
     .required('Required'),
@@ -39,13 +41,15 @@ const ValidationSchema = Yup.object().shape({
     .required('Required')
 })
 
-function SignUp () {
+function SignUp (props) {
   const [show, setShow] = useState(false)
   const [alertInfo, setAlertInfo] = useState({ variant: 'danger', message: 'Unknown error' })
+  const history = useHistory()
 
   const successfulSignup = ({ signup }) => {
     setAlertInfo({ variant: 'success', message: 'Singed up succesfully' })
     setShow(true)
+    localStorage.setItem('jwt',signup.jwt)
   }
 
   const failureSignup = (error) => {
@@ -68,8 +72,8 @@ function SignUp () {
           </Alert>
           <Formik
             initialValues={{
-              firstname: '',
-              lastname: '',
+              firstName: '',
+              lastName: '',
               username: '',
               password: ''
             }}
@@ -81,8 +85,12 @@ function SignUp () {
                   data: values
                 }
               })
-              if (response) resetForm()
-              setSubmitting(false)
+              if (response) {
+                setSubmitting(false)
+                resetForm()
+                props.login()
+                history.push("/userInfo")
+              }   
             }}
           >
             {({
@@ -97,29 +105,29 @@ function SignUp () {
 
                 <Form.Group controlId='formFirstName'>
                   <Form.Control
-                    name='firstname'
+                    name='firstName'
                     size='lg' type='text'
                     placeholder='First name'
                     onChange={handleChange}
-                    value={values.firstname}
-                    isInvalid={touched.firstname && errors.firstname}
+                    value={values.firstName}
+                    isInvalid={touched.firstName && errors.firstName}
                   />
                   <Form.Control.Feedback type='invalid'>
-                    {errors.firstname}
+                    {errors.firstName}
                   </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId='formLastName'>
                   <Form.Control
-                    name='lastname'
+                    name='lastName'
                     size='lg' type='text'
                     placeholder='Last name'
                     onChange={handleChange}
-                    value={values.lastname}
-                    isInvalid={touched.lastname && errors.lastname}
+                    value={values.lastName}
+                    isInvalid={touched.lastName && errors.lastName}
                   />
                   <Form.Control.Feedback type='invalid'>
-                    {errors.lastname}
+                    {errors.lastName}
                   </Form.Control.Feedback>
                 </Form.Group>
 

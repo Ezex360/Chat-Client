@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import { Formik } from 'formik'
@@ -13,6 +13,9 @@ const SIGN_IN = gql`
     signin(data: $data){
       user{
         id
+        username
+        firstName
+        lastName
       }
       jwt
     }
@@ -30,13 +33,15 @@ const ValidationSchema = Yup.object().shape({
 })
 
 
-function SignIn () {
+function SignIn (props) {
   const [show, setShow] = useState(false)
   const [alertInfo, setAlertInfo] = useState({ variant: 'danger', message: 'Unknown error' })
+  const history = useHistory()
 
   const successfulSignin = ({ signin }) => {
     setAlertInfo({ variant: 'success', message: 'Singed in succesfully' })
     setShow(true)
+    localStorage.setItem('jwt',signin.jwt)
   }
 
   const failureSignin = (error) => {
@@ -74,8 +79,12 @@ function SignIn () {
                   data: values
                 }
               })
-              if (response) resetForm()
-              setSubmitting(false)
+              if (response) {
+                setSubmitting(false)
+                resetForm()
+                props.login()
+                history.push("/userInfo")
+              }              
             }}
           >
             {({

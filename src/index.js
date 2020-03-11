@@ -9,12 +9,30 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { persistCache } from 'apollo-cache-persist'
+import { ApolloLink } from 'apollo-link'
 import { HttpLink } from 'apollo-link-http'
 import { ApolloProvider } from 'react-apollo'
 
+const httpLink = new HttpLink({
+  uri: 'http://localhost:3001/graphql'  
+})
+const middlewareLink = new ApolloLink((operation, forward) => {
+  const token = localStorage.getItem('jwt')
+  console.log(token)
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : null
+    }
+  })
+  return forward(operation)
+})
+const link = middlewareLink.concat(httpLink)
+
 const cache = new InMemoryCache()
-const link = new HttpLink({
-  uri: 'http://localhost:3001/graphql'
+persistCache({
+  cache,
+  storage: window.localStorage,
 })
 
 const client = new ApolloClient({
