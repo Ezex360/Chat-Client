@@ -49,7 +49,7 @@ function SignUp (props) {
   const successfulSignup = ({ signup }) => {
     setAlertInfo({ variant: 'success', message: 'Singed up succesfully' })
     setShow(true)
-    localStorage.setItem('jwt',signup.jwt)
+    localStorage.setItem('jwt', signup.jwt)
   }
 
   const failureSignup = (error) => {
@@ -89,8 +89,8 @@ function SignUp (props) {
                 setSubmitting(false)
                 resetForm()
                 props.login()
-                history.push("/userInfo")
-              }   
+                history.push('/userInfo')
+              }
             }}
           >
             {({

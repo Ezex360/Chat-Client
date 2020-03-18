@@ -11,31 +11,30 @@ function Header (props) {
   const client = useApolloClient()
 
   const SignOut = () => {
-    localStorage.setItem('jwt',null)
+    localStorage.setItem('jwt', null)
     client.clearStore()
     props.logout()
   }
   if (props.logged) {
-    
-    navlinks = 
-    <>
-      <Link className='nav-link' to="/userInfo">User</Link>
-      <Link className='nav-link' to="/auth/signin" onClick={SignOut}>Sign Out</Link>
-    </>
-  } else {
-    navlinks = 
+    navlinks =
       <>
-        <Link className='nav-link' to="/auth/signin">Sign in</Link>
-        <Link className='nav-link' to="/auth/signup">Sign up</Link>
-      </>      
+        <Link className='nav-link' to='/userInfo'>User</Link>
+        <Link className='nav-link' to='/auth/signin' onClick={SignOut}>Sign Out</Link>
+      </>
+  } else {
+    navlinks =
+      <>
+        <Link className='nav-link' to='/auth/signin'>Sign in</Link>
+        <Link className='nav-link' to='/auth/signup'>Sign up</Link>
+      </>
   }
 
-  return(
-    <>      
-      <Navbar className='justify-content-between' bg="primary" variant="dark" fixed="top">
+  return (
+    <>
+      <Navbar className='justify-content-between' bg='primary' variant='dark' fixed='top'>
         <Navbar.Brand>
           <img src={logo} className={styles.AppLogo} alt='logo' />
-          <Link className='navbar-brand' to="/">Simple Chat</Link>
+          <Link className='navbar-brand' to='/'>Simple Chat</Link>
         </Navbar.Brand>
         <Nav>
           {navlinks}

@@ -17,17 +17,15 @@ const CURRENT_USER = gql`
 `
 
 function UserInfo () {
-
-  return(    
+  return (
     <Jumbotron className={styles.UserInfoContainer}>
       <Query query={CURRENT_USER}>
-        {({loading, error, data}) => {
-
+        {({ loading, error, data }) => {
           if (loading) return 'Loading...'
           if (error) return `Error! ${error.message}`
           if (!data) return 'Failure executing query'
           const user = data.currentUser
-          return(
+          return (
             <>
               <h1>{user.username}</h1>
               <div className={styles.UserInfo}>
@@ -36,7 +34,7 @@ function UserInfo () {
               </div>
             </>
           )
-        }} 
+        }}
       </Query>
     </Jumbotron>
   )

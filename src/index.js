@@ -15,11 +15,10 @@ import { HttpLink } from 'apollo-link-http'
 import { ApolloProvider } from 'react-apollo'
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3001/graphql'  
+  uri: 'http://localhost:3001/graphql'
 })
 const middlewareLink = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem('jwt')
-  console.log(token)
   operation.setContext({
     headers: {
       authorization: token ? `Bearer ${token}` : null
@@ -32,7 +31,7 @@ const link = middlewareLink.concat(httpLink)
 const cache = new InMemoryCache()
 persistCache({
   cache,
-  storage: window.localStorage,
+  storage: window.localStorage
 })
 
 const client = new ApolloClient({

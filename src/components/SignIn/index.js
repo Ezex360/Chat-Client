@@ -32,7 +32,6 @@ const ValidationSchema = Yup.object().shape({
     .required('Required')
 })
 
-
 function SignIn (props) {
   const [show, setShow] = useState(false)
   const [alertInfo, setAlertInfo] = useState({ variant: 'danger', message: 'Unknown error' })
@@ -41,7 +40,7 @@ function SignIn (props) {
   const successfulSignin = ({ signin }) => {
     setAlertInfo({ variant: 'success', message: 'Singed in succesfully' })
     setShow(true)
-    localStorage.setItem('jwt',signin.jwt)
+    localStorage.setItem('jwt', signin.jwt)
   }
 
   const failureSignin = (error) => {
@@ -83,8 +82,8 @@ function SignIn (props) {
                 setSubmitting(false)
                 resetForm()
                 props.login()
-                history.push("/userInfo")
-              }              
+                history.push('/userInfo')
+              }
             }}
           >
             {({
@@ -97,7 +96,7 @@ function SignIn (props) {
             }) => (
               <Form className={styles.SignInForm} onSubmit={handleSubmit}>
 
-              <Form.Group controlId='formUsername'>
+                <Form.Group controlId='formUsername'>
                   <Form.Control
                     name='username'
                     size='lg' type='text'
